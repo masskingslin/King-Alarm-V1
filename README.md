@@ -1,111 +1,111 @@
-# வேத வசனம் — Bible Verses App v2.0
+# ✝ Crown Bible App — வேத வசனம்
 
-Tamil & English Bible App · Metro Widget 8 · Offline AI Search · Audio TTS · Google Ads
+**Tamil + English Bible · 31,102 Verses · Audio TTS · AI Search · Character Stories**
+
+---
+
+## Features
+
+| Feature | Details |
+|---|---|
+| 📖 **31,102 Verses** | Tamil (IRV) + English (WEB), fully offline |
+| 🔊 **Audio TTS** | Verse, chapter, and character story reading in Tamil & English |
+| ✦ **AI Search** | Offline keyword + topic search, 26 topic chips |
+| 👤 **Character Stories** | 11 Bible characters with timeline, verses, lessons |
+| 📅 **Daily Verse** | Changes every day, Tamil + English |
+| ✦ **Verse of the Week** | Famous highlighted verse, rotates weekly |
+| 📖 **Chapter Reader** | All 66 books, all chapters, TA/EN/Both toggle |
+| ☀ **Theme Toggle** | Dark / Light mode, saved between sessions |
+| ♥ **Save Verses** | Bookmark any verse, highlighted in gold |
+| ⎘ **Copy Verse** | Copy Tamil + English + reference to clipboard |
+
+---
+
+## Repository Structure
+
+```
+Bible-verses-app/
+├── .github/
+│   └── workflows/
+│       └── build.yml          ← GitHub Actions → APK
+├── public/                    ← webDir (Capacitor)
+│   ├── index.html             ← ENTIRE APP (HTML + CSS + JS)
+│   ├── manifest.json
+│   ├── data/
+│   │   ├── bd_a.js            ← Genesis → Numbers
+│   │   ├── bd_b.js            ← Deuteronomy → 2 Samuel
+│   │   ├── bd_c.js            ← 1 Kings → Psalms
+│   │   ├── bd_d.js            ← Proverbs → Ezekiel
+│   │   ├── bd_e.js            ← Daniel → Mark
+│   │   └── bd_f.js            ← Luke → Revelation
+│   └── characters.js          ← 11 Bible character stories
+├── capacitor.config.json
+├── package.json
+└── README.md
+```
+
+---
+
+## Build APK via GitHub Actions
+
+1. Push any change to `main` branch
+2. Go to **Actions** tab → latest run
+3. Wait ~5 minutes for build to complete
+4. Download **CrownBible-APK-{number}** from Artifacts
+5. Install on Android phone
+
+---
+
+## Bible Data Sources
+
+- **English**: World English Bible (WEB) — Public Domain
+- **Tamil**: Indian Revised Version (IRV) — திருத்தப்பட்ட வேதாகமம்
+- **Characters**: Custom data — 11 key Bible figures
+
+---
+
+## Technology
+
+- **Frontend**: Pure HTML + CSS + JavaScript (no React, no build step)
+- **Platform**: Capacitor 5 → Android WebView
+- **Build**: GitHub Actions → Gradle → APK
+- **Audio**: Web Speech API (built into Android)
+- **Storage**: localStorage (offline, no server)
 
 ---
 
 ## Architecture
 
 ```
-ARCHITECTURE V2 (Fixed)
-═══════════════════════════════════════════════════════════
-
-  public/index.html          ← Single-file app (HTML+CSS+JS)
-  │
-  ├── DATA LAYER             ← Structured Bible data (30 verses + 37 books)
-  │   └── DATA object        Pure JS, no dependencies, expandable via JSON
-  │
-  ├── LOGIC LAYER
-  │   ├── Search.js          Offline keyword+tag search engine
-  │   ├── State.js           Persistent state (localStorage)
-  │   └── Audio.js           TTS engine (Web Speech API, fully guarded)
-  │
-  ├── UI LAYER
-  │   ├── UI.js              Verse card renderer
-  │   ├── Reading.js         Fullscreen reading mode
-  │   ├── Home.js            Metro tile grid + live clock
-  │   ├── Verses.js          All verses + filter
-  │   ├── AI.js              Search screen
-  │   └── Books.js           Books grid (OT/NT filter)
-  │
-  └── APP CONTROLLER
-      └── App.js             Router, init, event delegation
-
-  capacitor.config.json      ← webDir: "public" (no build needed!)
-  package.json               ← Only Capacitor (NO React, NO react-scripts)
-  .github/workflows/build.yml ← GitHub Actions → APK
-
-═══════════════════════════════════════════════════════════
-
-WHY NOT REACT?
-  React + react-scripts adds 3 failure points:
-    1. JSX parse errors
-    2. npm install failures
-    3. react-scripts compile failures
-
-  Pure HTML+JS has ZERO build failures.
-  Capacitor wraps ANY HTML file — React is never needed.
+┌─────────────────────────────────┐
+│     PRESENTATION LAYER          │  HTML + CSS (index.html)
+│  Home · Verses · Search ·       │
+│  Books · Characters · Saved     │
+├─────────────────────────────────┤
+│     LOGIC LAYER                 │  Pure JavaScript modules
+│  BD · ST · AU · R · RM         │  (no framework)
+│  CR · CD · SV · SA · SB        │
+├─────────────────────────────────┤
+│     DATA LAYER                  │  bd_a.js → bd_f.js
+│  31,102 verses in RAM           │  characters.js
+│  localStorage for user data     │  localStorage
+├─────────────────────────────────┤
+│     PLATFORM LAYER              │  Capacitor + Android
+│  WebView · Speech API           │  minAPI 21 (Android 5+)
+│  Clipboard · localStorage       │  targetAPI 33
+└─────────────────────────────────┘
 ```
-
----
-
-## Features
-
-| Feature | Status |
-|---------|--------|
-| Tamil + English verses | 30 verses |
-| Offline AI search | Tag + keyword scoring engine |
-| Audio TTS | Web Speech API (en + ta) |
-| Reading mode | Fullscreen, A+ A- font control |
-| Dark / Light theme | Persisted in localStorage |
-| Saved verses | Persisted in localStorage |
-| Live clock tile | Updates every second |
-| Daily verse | Rotates by day of week |
-| Google Ad slots | 5 placements ready |
-| Books grid | 37 books, OT/NT filter |
-| Metro Widget 8 UI | Flat tiles, Metro palette |
-
----
-
-## Expanding to Full Bible (31,102 verses)
-
-Replace the VERSES array in index.html with a fetch:
-
-```javascript
-// In DATA object:
-fetch('./bible.json')
-  .then(function(r){ return r.json(); })
-  .then(function(data){
-    VERSES = data;
-    App.init();
-  });
-```
-
-Download bible.json from:
-- https://github.com/scrollmapper/bible_databases (KJV, MIT license)
-- https://github.com/thiagobodruk/bible (Tamil + English, free)
-
----
-
-## Build APK via GitHub
-
-1. Create GitHub repo
-2. Upload all files (keep folder structure)
-3. Actions tab → Build Bible APK → Run workflow
-4. Download APK from Artifacts
-5. Install on Android
 
 ---
 
 ## Google AdSense Setup
 
-1. Get approved at adsense.google.com
-2. In `public/index.html` uncomment:
-```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
-```
-3. Replace `.ad-slot` divs with real `<ins>` tags
+Four ad slots are pre-placed in `index.html`:
+1. Home screen — below tiles
+2. AI Search — above results
+3. Characters — top of page
+4. Saved — bottom of page
 
-For Android APK → use Google AdMob instead:
-- npm install @capacitor-community/admob
-- Register at admob.google.com
+Replace `<span class="adlbl">GOOGLE ADSENSE — SLOT N</span>` with your real AdSense `<ins>` tags.
+
+For APK → use **Google AdMob** via Capacitor plugin instead.
