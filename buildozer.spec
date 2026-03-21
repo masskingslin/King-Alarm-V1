@@ -12,37 +12,58 @@ package.domain = org.king
 # (str) Source code location
 source.dir = .
 
-# (list) Include extensions
-source.include_exts = py,kv,png,jpg,json
+# (list) File extensions to include
+source.include_exts = py,kv,png,jpg,jpeg,json,ttf,otf,txt,db,sqlite3
 
-# (list) Requirements
-requirements = python3,kivy,pyjnius
+# (list) Source patterns to include
+source.include_patterns = assets/*,assets/**/*
 
-# (str) Version
+# (str) App version
 version = 1.0.0
 
-# (list) Permissions
-android.permissions = INTERNET,ACCESS_NETWORK_STATE
+# ── REQUIREMENTS ──────────────────────────────────────────────────────────────
+# FIXED: removed invalid 'python3', added hostpython3, pinned kivy==2.3.0
+requirements = hostpython3,kivy==2.3.0,pyjnius,android
 
-# (int) API levels
+# ── ANDROID ───────────────────────────────────────────────────────────────────
 android.api = 33
 android.minapi = 21
-android.ndk = 25b
 
-# (str) Orientation
-orientation = portrait
+# FIXED: full NDK version string (25b is wrong)
+android.ndk = 25.1.8937393
 
-# (bool) Fullscreen
-fullscreen = 0
+# FIXED: explicit ABI targets
+android.archs = arm64-v8a,armeabi-v7a
 
-# (list) Assets (CRITICAL for Bible JSON)
-android.add_assets = assets/bible
+# FIXED: auto-accept SDK licenses
+android.accept_sdk_license = True
 
-# (AdMob dependency)
+# FIXED: required for AdMob
+android.enable_androidx = True
+
+# ── ASSETS ────────────────────────────────────────────────────────────────────
+# FIXED: src:dest format
+android.add_assets = assets/bible:assets/bible
+
+# ── PERMISSIONS ───────────────────────────────────────────────────────────────
+android.permissions = INTERNET,ACCESS_NETWORK_STATE,RECEIVE_BOOT_COMPLETED
+
+# ── GRADLE / ADMOB ────────────────────────────────────────────────────────────
 android.gradle_dependencies = com.google.android.gms:play-services-ads:22.6.0
 
-# (Optional: reduce size)
-p4a.branch = master
+# FIXED: Google Maven repo for AdMob
+android.add_gradle_repositories = google()
 
-# (Log level)
+# ── DISPLAY ───────────────────────────────────────────────────────────────────
+orientation = portrait
+fullscreen = 0
+
+# ── P4A ───────────────────────────────────────────────────────────────────────
+# FIXED: stable branch (master is broken)
+p4a.branch = stable
+
+# ── BUILD ─────────────────────────────────────────────────────────────────────
 log_level = 2
+
+[buildozer]
+warn_on_root = 1
