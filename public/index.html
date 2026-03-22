@@ -1242,6 +1242,19 @@ input{font-family:inherit;outline:none;border:none}
   var cnt = BD.build();
   document.getElementById('ai-count').textContent = cnt.toLocaleString() + ' VERSES · TAMIL + ENGLISH · OFFLINE';
 
+  // Expose all modules to global scope for onclick handlers
+  window.App = App;
+  window.AU  = AU;
+  window.RM  = RM;
+  window.CR  = CR;
+  window.CD  = CD;
+  window.SV  = SV;
+  window.SA  = SA;
+  window.SB  = SB;
+  window.SC  = SC;
+  window.SS  = SS;
+  window.BD  = BD;
+
   // Build all screens
   SV.build(); SA.build(); SB.build(); SC.build();
 
