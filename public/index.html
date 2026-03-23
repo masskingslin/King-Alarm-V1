@@ -372,6 +372,94 @@ input{font-family:inherit;outline:none;border:none}
       <div class="ad"><span class="adlbl">GOOGLE ADSENSE — SLOT 4</span></div>
     </div>
 
+
+    <!-- SETTINGS -->
+    <div class="scr" id="s-settings">
+      <div style="background:linear-gradient(135deg,#1a1a2e,#2a2a4e);padding:16px 16px 12px">
+        <div style="color:var(--gold);font-size:14px;font-weight:700;letter-spacing:2px;font-family:var(--sans)">⚙ SETTINGS · அமைப்புகள்</div>
+        <div style="color:rgba(201,168,76,.5);font-size:9px;font-family:var(--sans);margin-top:3px">APP PREFERENCES · ஆப் விருப்பங்கள்</div>
+      </div>
+
+      <!-- Audio Language Setting -->
+      <div style="margin:12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden">
+        <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--text);font-family:var(--sans)">🔊 AUDIO LANGUAGE · ஒலி மொழி</div>
+          <div style="font-size:9px;color:var(--text2);margin-top:4px;font-family:var(--sans)">Choose language for all audio reading</div>
+        </div>
+        <div style="padding:12px 16px">
+          <div style="display:flex;gap:8px">
+            <button id="set-lang-ta" onclick="Settings.setAudioLang('ta')"
+              style="flex:1;padding:14px;border:2px solid var(--gold);background:rgba(201,168,76,.15);color:var(--gold);font-size:12px;font-weight:700;font-family:var(--sans);border-radius:6px">
+              தமிழ்<br><span style="font-size:9px;opacity:.7">TAMIL</span>
+            </button>
+            <button id="set-lang-en" onclick="Settings.setAudioLang('en')"
+              style="flex:1;padding:14px;border:2px solid var(--border);background:var(--bg3);color:var(--text2);font-size:12px;font-weight:700;font-family:var(--sans);border-radius:6px">
+              English<br><span style="font-size:9px;opacity:.7">ENGLISH</span>
+            </button>
+          </div>
+          <div id="set-lang-status" style="text-align:center;margin-top:10px;font-size:10px;color:var(--gold);font-family:var(--sans);letter-spacing:1px"></div>
+        </div>
+      </div>
+
+      <!-- TTS Info -->
+      <div style="margin:0 12px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden">
+        <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--text);font-family:var(--sans)">📱 TEXT-TO-SPEECH ENGINE</div>
+          <div style="font-size:9px;color:var(--text2);margin-top:4px;font-family:var(--sans)">Required for audio reading to work</div>
+        </div>
+        <div style="padding:14px 16px">
+          <div id="tts-status-box" style="padding:12px;background:var(--bg3);border-radius:6px;margin-bottom:12px">
+            <div id="tts-status-text" style="font-size:10px;font-family:var(--sans);color:var(--text2);line-height:1.7"></div>
+          </div>
+          <div style="font-size:9px;color:var(--text2);font-family:var(--sans);line-height:1.8">
+            <div style="color:var(--gold);font-weight:700;margin-bottom:6px;letter-spacing:1px">TO ENABLE TAMIL AUDIO:</div>
+            1. Open Android Settings<br>
+            2. General Management → Language<br>
+            3. Text-to-Speech Output<br>
+            4. Google TTS → Settings (gear icon)<br>
+            5. Install voice data → Tamil<br>
+            6. Come back and tap Test Audio below
+          </div>
+          <div style="display:flex;gap:8px;margin-top:12px">
+            <button onclick="Settings.testAudio()"
+              style="flex:1;padding:10px;background:var(--gold);color:#06060e;font-size:10px;font-weight:700;font-family:var(--sans);border:none;border-radius:4px">
+              🔊 TEST AUDIO
+            </button>
+            <button onclick="Settings.openTTSSettings()"
+              style="flex:1;padding:10px;background:var(--bg3);color:var(--text2);font-size:10px;font-weight:700;font-family:var(--sans);border:1px solid var(--border);border-radius:4px">
+              ⚙ OPEN TTS SETTINGS
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Theme Setting -->
+      <div style="margin:0 12px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden">
+        <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--text);font-family:var(--sans)">🎨 THEME · தீம்</div>
+        </div>
+        <div style="padding:12px 16px">
+          <div style="display:flex;gap:8px">
+            <button onclick="App.setTheme('dark')" id="set-dark"
+              style="flex:1;padding:12px;border:2px solid var(--border);background:var(--bg3);color:var(--text2);font-size:11px;font-weight:700;font-family:var(--sans);border-radius:6px">
+              🌙 Dark
+            </button>
+            <button onclick="App.setTheme('light')" id="set-light"
+              style="flex:1;padding:12px;border:2px solid var(--border);background:var(--bg3);color:var(--text2);font-size:11px;font-weight:700;font-family:var(--sans);border-radius:6px">
+              ☀ Light
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- App Info -->
+      <div style="margin:0 12px 80px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:center">
+        <div style="font-size:20px;color:var(--gold);margin-bottom:8px">✝</div>
+        <div style="font-size:13px;font-weight:700;letter-spacing:3px;color:var(--text);font-family:var(--sans)">CROWN BIBLE</div>
+        <div style="font-size:9px;color:var(--text2);font-family:var(--sans);margin-top:4px">VERSION 2.0 · 31,103 VERSES</div>
+        <div style="font-size:9px;color:var(--text2);font-family:var(--sans);margin-top:2px">TAMIL + ENGLISH · OFFLINE</div>
+      </div>
+    </div>
   </main>
 
   <!-- BOTTOM NAV -->
@@ -382,6 +470,7 @@ input{font-family:inherit;outline:none;border:none}
     <button class="nb"    data-s="books"  onclick="App.nav('books')"> <span class="ni">📖</span><span class="nl">BOOKS</span>   </button>
     <button class="nb"    data-s="chars"  onclick="App.nav('chars')"> <span class="ni">👤</span><span class="nl">PEOPLE</span>  </button>
     <button class="nb"    data-s="saved"  onclick="App.nav('saved')"> <span class="ni">♥</span><span class="nl">SAVED</span>   </button>
+    <button class="nb"    data-s="settings" onclick="App.nav('settings')"><span class="ni">⚙</span><span class="nl">SETTINGS</span></button>
   </nav>
 </div>
 
@@ -462,10 +551,7 @@ input{font-family:inherit;outline:none;border:none}
     <button class="aucls" onclick="AU.close()">✕</button>
     <div class="aut">🔊 AUDIO · ஒலி வாசிப்பு</div>
     <div class="aur" id="au-ref">—</div>
-    <div class="aulng">
-      <button id="au-ta" onclick="AU.setLang('ta')" style="background:#fff;color:#06060e">தமிழ் Tamil</button>
-      <button id="au-en" onclick="AU.setLang('en')" style="background:rgba(255,255,255,.1);color:#fff">English</button>
-    </div>
+    <div id="au-lang-show" style="font-size:9px;color:rgba(255,255,255,.4);font-family:var(--sans);margin-bottom:10px;letter-spacing:1px"></div>
     <div class="auctls">
       <button id="au-play" onclick="AU.play()" style="flex:2;background:#fff;color:#06060e">▶ PLAY</button>
       <button onclick="AU.pause()"  style="background:rgba(255,255,255,.1);color:#fff">⏸</button>
@@ -474,6 +560,9 @@ input{font-family:inherit;outline:none;border:none}
     </div>
     <div class="auprog"><div class="aubar" id="au-prog"></div></div>
     <div class="aumsg" id="au-msg"></div>
+    <div style="margin-top:8px;text-align:center">
+      <button onclick="App.nav('settings')" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.4);border:none;font-size:8px;font-family:var(--sans);padding:4px 10px;border-radius:3px;letter-spacing:1px">⚙ CHANGE LANGUAGE IN SETTINGS</button>
+    </div>
   </div>
 </div>
 
@@ -660,7 +749,7 @@ input{font-family:inherit;outline:none;border:none}
 
   /* ── STATE ── */
   var ST = (function(){
-    var d = {theme:'dark', saved:[], fs:17, lang:'both'};
+    var d = {theme:'dark', saved:[], fs:17, lang:'both', audioLang:'ta'};
     try { var s = localStorage.getItem('crownbible_v1'); if(s) d = Object.assign(d, JSON.parse(s)); } catch(e){}
     function sv(){ try{ localStorage.setItem('crownbible_v1', JSON.stringify(d)); }catch(e){} }
     return {
@@ -674,25 +763,36 @@ input{font-family:inherit;outline:none;border:none}
       },
       setFs: function(n){ d.fs = Math.max(13,Math.min(28,n)); sv(); },
       setTheme: function(t){ d.theme = t; sv(); },
-      setLang: function(l){ d.lang = l; sv(); }
+      setLang: function(l){ d.lang = l; sv(); },
+      setAudioLang: function(l){ d.audioLang = l; sv(); }
     };
   })();
 
   /* ── AUDIO TTS ENGINE ── */
   var AU = (function(){
   var _cap = null, _web = ('speechSynthesis' in window);
-  var _lang = 'ta', _v = null, _st = null, _vv = [];
+  var _vv = [], _v = null, _st = null;
+
+  // Load Capacitor TTS
   try {
     if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.TextToSpeech)
       _cap = window.Capacitor.Plugins.TextToSpeech;
   } catch(e) {}
+
+  // Load Web Speech voices
   if (_web) {
-    _vv = window.speechSynthesis.getVoices() || [];
+    function loadVoices(){ _vv = window.speechSynthesis.getVoices() || []; }
+    loadVoices();
     if (window.speechSynthesis.onvoiceschanged !== undefined)
-      window.speechSynthesis.onvoiceschanged = function() { _vv = window.speechSynthesis.getVoices() || []; };
-    setTimeout(function() { _vv = window.speechSynthesis.getVoices() || []; }, 1000);
-    setTimeout(function() { _vv = window.speechSynthesis.getVoices() || []; }, 3000);
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    setTimeout(loadVoices, 500);
+    setTimeout(loadVoices, 2000);
+    setTimeout(loadVoices, 4000);
   }
+
+  function getLang(){ return ST.g('audioLang') || ST.g('lang') || 'ta'; }
+  function getLc()  { return getLang() === 'ta' ? 'ta-IN' : 'en-US'; }
+
   function setPlayUI(on) {
     var b = document.getElementById('au-play'); if (!b) return;
     b.textContent = on ? '▶ PLAYING...' : '▶ PLAY';
@@ -700,18 +800,15 @@ input{font-family:inherit;outline:none;border:none}
     b.style.color = on ? '#fff' : '#06060e';
   }
   function setMsg(t) { var e = document.getElementById('au-msg'); if (e) e.textContent = t || ''; }
-  function setProg(p) { var e = document.getElementById('au-prog'); if (e) e.style.width = (p || 0) + '%'; }
-  function setLangUI(l) {
-    ['ta','en'].forEach(function(x) {
-      var b = document.getElementById('au-' + x); if (!b) return;
-      b.style.background = l === x ? '#fff' : 'rgba(255,255,255,.1)';
-      b.style.color = l === x ? '#06060e' : '#fff';
-    });
+  function setProg(p) { var e = document.getElementById('au-prog'); if (e) e.style.width = (p||0) + '%'; }
+  function updateLangDisplay() {
+    var el = document.getElementById('au-lang-show');
+    if (el) el.textContent = getLang() === 'ta' ? 'LANGUAGE: TAMIL (தமிழ்)' : 'LANGUAGE: ENGLISH';
   }
   function openPanel(ref) {
     document.getElementById('au-ref').textContent = ref || '';
     document.getElementById('au-panel').classList.add('on');
-    setLangUI(_lang); setMsg(''); setProg(0);
+    updateLangDisplay(); setMsg(''); setProg(0);
   }
   function stopAll() {
     try { if (_cap) _cap.stop(); } catch(e) {}
@@ -736,74 +833,66 @@ input{font-family:inherit;outline:none;border:none}
       u.onerror = function() {
         setPlayUI(false); setProg(0);
         if (lc.indexOf('ta') === 0)
-          setMsg('Tamil voice missing. Settings > Language > TTS > Add Tamil');
+          setMsg('⚠ Tamil voice missing. Go to: Settings > ⚙ SETTINGS tab > Open TTS Settings > Install Tamil');
         else
-          setMsg('TTS error. Install Google Text-to-Speech from Play Store.');
+          setMsg('⚠ TTS error. Settings > ⚙ SETTINGS tab > Open TTS Settings');
       };
       window.speechSynthesis.speak(u); setPlayUI(true);
-    } catch(e) { setPlayUI(false); setMsg(e.message); }
+    } catch(e) { setPlayUI(false); setMsg('⚠ ' + e.message); }
   }
   function doSpeak(text, lc, onEnd) {
-    if (!text || !text.trim()) { setMsg('No text.'); return; }
+    if (!text || !text.trim()) { setMsg('No text to read.'); return; }
     stopAll(); setPlayUI(true); setProg(20);
     if (_cap) {
-      _cap.speak({ text: text, lang: lc || 'en-US', rate: 1.0, pitch: 1.0, volume: 1.0 })
+      _cap.speak({ text: text, lang: lc, rate: 1.0, pitch: 1.0, volume: 1.0 })
         .then(function() { setPlayUI(false); setProg(100); setTimeout(function(){setProg(0);},600); if (onEnd) onEnd(); })
-        .catch(function() {
-          setMsg('');
-          if (_web) { webSpeak(text, lc, onEnd); return; }
-          setPlayUI(false); setProg(0); setMsg('Install Google TTS from Play Store.');
-        });
+        .catch(function() { setMsg(''); if (_web) webSpeak(text, lc, onEnd); else { setPlayUI(false); setProg(0); setMsg('⚠ Go to Settings > ⚙ SETTINGS tab to set up audio.'); } });
       return;
     }
     if (_web) { webSpeak(text, lc, onEnd); return; }
-    setPlayUI(false); setProg(0); setMsg('Install Google Text-to-Speech from Play Store.');
+    setPlayUI(false); setProg(0);
+    setMsg('⚠ Audio not available. Tap Settings below to set up.');
+  }
+  function speakNow(text) {
+    openPanel(null);
+    doSpeak(text, getLc());
   }
   return {
-    open: function(v) { _v = v; _st = null; openPanel(v.ref); },
-    close: function() { stopAll(); document.getElementById('au-panel').classList.remove('on'); },
-    toggle: function() {
-      var p = document.getElementById('au-panel');
-      if (p.classList.contains('on')) this.close(); else if (_v) this.open(_v);
-    },
-    setLang: function(l) {
-      _lang = l; stopAll(); setLangUI(l);
-      setMsg(l === 'ta' ? 'Tamil selected - tap PLAY' : 'English selected - tap PLAY');
-    },
-    play: function() {
-      var text = _st || (_v ? (_lang === 'ta' ? _v.ta : _v.en) : null);
-      if (!text) { setMsg('No content.'); return; }
-      doSpeak(text, _lang === 'ta' ? 'ta-IN' : 'en-US');
-    },
+    open: function(v)  { _v = v; _st = null; openPanel(v.ref); },
+    close: function()  { stopAll(); document.getElementById('au-panel').classList.remove('on'); },
+    toggle: function() { var p = document.getElementById('au-panel'); if (p.classList.contains('on')) this.close(); else if (_v) this.open(_v); },
+    play:  function()  { var t = _st || (_v ? (_getLangText(_v)) : null); if (!t){ setMsg('No content.'); return; } doSpeak(t, getLc()); },
     readChapter: function() {
       if (!window.CR || !window.CR._bk) return;
       var vs = BD.byBookCh(window.CR._bk, window.CR._ch);
       if (!vs.length) return;
       _v = { ref: window.CR._bk + ' Ch ' + window.CR._ch, ta: '', en: '' };
-      _st = vs.map(function(v,i){ return (i+1) + '. ' + (_lang==='ta' ? v.ta : v.en); }).join(' ');
+      _st = vs.map(function(v,i){ return (i+1) + '. ' + _getLangText(v); }).join(' ');
       openPanel(window.CR._bk + ' Chapter ' + window.CR._ch);
-      doSpeak(_st, _lang === 'ta' ? 'ta-IN' : 'en-US', function(){ setMsg('Complete'); });
+      doSpeak(_st, getLc(), function(){ setMsg('Complete ✓'); });
     },
     readStory: function() {
       var cid = document.getElementById('cd-name').getAttribute('data-cid');
       if (!cid || typeof BIBLE_CHARACTERS === 'undefined') return;
       var ch = BIBLE_CHARACTERS.find(function(c){ return c.id === cid; });
       if (!ch) return;
-      var text = _lang === 'ta' ? ch.summary_ta + ' ' + ch.lessons_ta.join(' ')
-                                : ch.summary_en + ' ' + ch.lessons_en.join(' ');
+      var text = getLang() === 'ta' ? ch.summary_ta + ' ' + ch.lessons_ta.join(' ')
+                                    : ch.summary_en + ' ' + ch.lessons_en.join(' ');
       _v = { ref: ch.name, ta: '', en: '' }; _st = text;
-      openPanel(ch.name);
-      doSpeak(text, _lang === 'ta' ? 'ta-IN' : 'en-US', function(){ setMsg('Done'); });
+      openPanel(ch.name); doSpeak(text, getLc(), function(){ setMsg('Done ✓'); });
     },
-    speakText: function(text, lc) {
-      openPanel(lc === 'ta-IN' ? 'Tamil Audio' : 'English Audio');
-      doSpeak(text, lc || 'en-US');
-    },
+    speakText: function(text) { openPanel(null); doSpeak(text, getLc()); },
     pause:  function() { try { if (_web && window.speechSynthesis.speaking) window.speechSynthesis.pause(); } catch(e) {} },
     resume: function() { try { if (_web && window.speechSynthesis.paused) window.speechSynthesis.resume(); } catch(e) {} },
-    stop: stopAll,
-    get _lang() { return _lang; }
+    stop:   stopAll,
+    isAvailable: function() { return !!(_cap || _web); },
+    checkStatus: function() {
+      if (_cap) return 'Capacitor TTS ✓ Active';
+      if (_web) { var vl = _vv.length; return 'Web TTS ✓ ' + vl + ' voice' + (vl===1?'':'s') + ' available'; }
+      return 'No TTS engine found';
+    }
   };
+  function _getLangText(v){ return getLang() === 'ta' ? (v.ta || v.en || '') : (v.en || v.ta || ''); }
 })();
 
   /* ── RENDERER ── */
@@ -983,13 +1072,13 @@ input{font-family:inherit;outline:none;border:none}
       });
 
       h += '<div class="csec">';
-      h += '<div class="csl">BIOGRAPHY · சுயசரிதை</div>';
+      h += '<div class="csl" style="display:flex;justify-content:space-between;align-items:center">';
+      h += '<span>BIOGRAPHY · சுயசரிதை</span>';
+      h += '<button onclick="window._ttsQ(\'' + cid + '_bio\')" style="background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:var(--gold);font-size:9px;font-weight:700;padding:3px 10px;border-radius:4px;font-family:var(--sans)">🔊 LISTEN</button>';
+      h += '</div>';
       h += '<div class="csen">'+ch.summary_en+'</div>';
       h += '<div class="csta">'+ch.summary_ta+'</div>';
-      h += '<div style="display:flex;gap:6px;margin-top:12px">';
-      h += '<button onclick="window._ttsSpeak(\''+cid+'_bio_ta\',\'ta-IN\')" style="flex:1;padding:9px;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.4);color:var(--gold);font-size:10px;font-weight:700;font-family:var(--sans);border-radius:4px">🔊 தமிழ்</button>';
-      h += '<button onclick="window._ttsSpeak(\''+cid+'_bio_en\',\'en-US\')" style="flex:1;padding:9px;background:var(--bg3);color:var(--text2);font-size:10px;font-weight:700;font-family:var(--sans);border-radius:4px">🔊 English</button>';
-      h += '</div></div>';
+      h += '</div>';
 
       h += '<div class="csec"><div class="csl">LIFE TIMELINE · காலவரிசை</div>';
       ch.timeline.forEach(function(t,i){
@@ -1004,13 +1093,13 @@ input{font-family:inherit;outline:none;border:none}
       h += '<div class="csec"><div class="csl">KEY VERSES · முக்கிய வசனங்கள்</div>';
       ch.verses.forEach(function(v,i){
         h += '<div class="kv" style="border-left-color:'+col+'">';
-        h += '<div class="kvref">'+v.ref+'</div>';
+        h += '<div class="kvref" style="display:flex;justify-content:space-between;align-items:center">';
+        h += '<span>'+v.ref+'</span>';
+        h += '<button onclick="window._ttsQ(\'' + cid + '_v'+i+'\')" style="background:'+col+'22;border:1px solid '+col+'55;color:'+col+';font-size:8px;font-weight:700;padding:2px 8px;border-radius:3px;font-family:var(--sans)">🔊</button>';
+        h += '</div>';
         h += '<div class="kvta">'+v.ta+'</div>';
         h += '<div class="kven">'+v.en+'</div>';
-        h += '<div class="kvact">';
-        h += '<button onclick="window._ttsSpeak(\''+cid+'_v'+i+'_ta\',\'ta-IN\')" style="background:'+col+'33;color:'+col+'">🔊 தமிழ்</button>';
-        h += '<button onclick="window._ttsSpeak(\''+cid+'_v'+i+'_en\',\'en-US\')" style="background:var(--bg3);color:var(--text2)">🔊 English</button>';
-        h += '</div></div>';
+        h += '</div>';
       });
       h += '</div>';
 
@@ -1021,12 +1110,11 @@ input{font-family:inherit;outline:none;border:none}
       });
       h += '</div>';
 
-      h += '<div class="csec" style="background:var(--bg3)">';
-      h += '<div class="csl">FULL STORY AUDIO · முழு கதை</div>';
-      h += '<div style="display:flex;gap:8px;margin-top:4px">';
-      h += '<button onclick="window._ttsSpeak(\''+cid+'_story_ta\',\'ta-IN\')" style="flex:1;padding:12px;background:rgba(201,168,76,.2);border:1px solid var(--gold);color:var(--gold);font-size:11px;font-weight:700;font-family:var(--sans);border-radius:6px">🔊 தமிழில் கேளுங்கள்</button>';
-      h += '<button onclick="window._ttsSpeak(\''+cid+'_story_en\',\'en-US\')" style="flex:1;padding:12px;background:var(--bg2);color:var(--text2);font-size:11px;font-weight:700;font-family:var(--sans);border-radius:6px">🔊 Listen in English</button>';
-      h += '</div></div>';
+      h += '<div class="csec" style="background:var(--bg3);text-align:center">';
+      h += '<div class="csl" style="text-align:center;justify-content:center">FULL STORY AUDIO · முழு கதை</div>';
+      h += '<button onclick="window._ttsQ(\'' + cid + '_story\')" style="width:100%;padding:14px;background:var(--gold);color:#06060e;font-size:13px;font-weight:700;border:none;border-radius:6px;font-family:var(--sans)">🔊 READ FULL STORY</button>';
+      h += '</div>';
+
       h += '<div class="ad" style="height:70px"><span class="adlbl">ADVERTISEMENT</span></div>';
       return h;
     }
@@ -1216,6 +1304,13 @@ input{font-family:inherit;outline:none;border:none}
       ST.setLang(ls[ni]);
       document.getElementById('lang-btn').textContent = ls[ni].toUpperCase();
     },
+    setTheme: function(t){
+      var cur = ST.g('theme'); if (t === cur) return;
+      ST.setTheme(t);
+      if (t==='light') document.documentElement.setAttribute('data-light','');
+      else document.documentElement.removeAttribute('data-light');
+      document.getElementById('th-btn').textContent = t==='dark' ? '☀' : '🌙';
+    },
     theme: function(){
       var t = ST.g('theme')==='dark' ? 'light' : 'dark';
       ST.setTheme(t);
@@ -1249,14 +1344,67 @@ input{font-family:inherit;outline:none;border:none}
   window.BD  = BD;
 
   // Build all screens
-  window.App=App;window.AU=AU;window.RM=RM;window.CR=CR;
+
+  /* == SETTINGS == */
+  var Settings = {
+    init: function(){ this.updateUI(); this.updateTTSStatus(); },
+    setAudioLang: function(l){
+      ST.setAudioLang(l); this.updateUI();
+      var test = l==='ta' ? 'தமிழ் தேர்ந்தெடுக்கப்பட்டது' : 'English selected';
+      AU.speakText(test);
+    },
+    updateUI: function(){
+      var l = ST.g('audioLang') || 'ta';
+      ['ta','en'].forEach(function(x){
+        var b = document.getElementById('set-lang-'+x);
+        if (!b) return;
+        b.style.border = l===x ? '2px solid var(--gold)' : '2px solid var(--border)';
+        b.style.background = l===x ? 'rgba(201,168,76,.2)' : 'var(--bg3)';
+        b.style.color = l===x ? 'var(--gold)' : 'var(--text2)';
+      });
+      var st = document.getElementById('set-lang-status');
+      if (st) st.textContent = l==='ta' ? '✓ Tamil audio active for all 🔊 buttons' : '✓ English audio active for all 🔊 buttons';
+    },
+    updateTTSStatus: function(){
+      var el = document.getElementById('tts-status-text'); if (!el) return;
+      var s = AU.checkStatus();
+      el.textContent = s;
+      el.style.color = s.indexOf('✓') >= 0 ? '#5fcc80' : 'rgba(255,100,100,.8)';
+    },
+    testAudio: function(){
+      var l = ST.g('audioLang') || 'ta';
+      var t = l==='ta' ? 'ஆதியிலே தேவன் வானத்தையும் பூமியையும் சிருஷ்டித்தார்' : 'In the beginning God created the heaven and the earth.';
+      AU.speakText(t);
+      setTimeout(function(){ Settings.updateTTSStatus(); }, 2000);
+    },
+    openTTSSettings: function(){
+      try{ if(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.App)
+        window.Capacitor.Plugins.App.openUrl({url:'com.android.settings.TTS_SETTINGS'}).catch(function(){});
+      }catch(e){}
+      var el = document.getElementById('tts-status-text');
+      if (el) el.textContent = 'Go to: Settings > General Management > Language > TTS > Google TTS > Install Tamil';
+    }
+  };
+
+  /* == _ttsQ: global single-button audio helper == */
+  window._ttsQ = function(key){
+    if (!window._ttsQueue) return;
+    var l  = ST.g('audioLang') || 'ta';
+    var ta = window._ttsQueue[key + '_ta'];
+    var en = window._ttsQueue[key + '_en'];
+    var text = l === 'ta' ? (ta || en) : (en || ta);
+    if (!text) return;
+    AU.speakText(text);
+  };
+
+  window.App=App;window.AU=AU;window.RM=RM;window.CR=CR;window.Settings=Settings;
   window.CD=CD;window.SV=SV;window.SA=SA;window.SB=SB;
   window.SC=SC;window.SS=SS;window.BD=BD;
   window._ttsSpeak=function(key,lc){
     var t=window._ttsQueue&&window._ttsQueue[key];
     if(t)window.AU.speakText(t,lc);
   };
-  SV.build(); SA.build(); SB.build(); SC.build();
+  SV.build(); SA.build(); SB.build(); SC.build(); Settings.init();
 
   // Build home screen
   var daily = BD.daily();
