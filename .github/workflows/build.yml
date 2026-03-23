@@ -33,19 +33,23 @@ jobs:
           key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*','**/gradle-wrapper.properties') }}
           restore-keys: gradle-${{ runner.os }}-
 
-      # FIX: TTS 4.x matches Capacitor 5.x (TTS 5.x needs Capacitor 6.x)
-      - name: Install Capacitor + TTS plugin
+      # Capacitor 6 + TTS 4 + AdMob 6 (all compatible)
+      - name: Install packages
         run: |
-          npm install -g @capacitor/cli@5.7.0
+          npm install -g @capacitor/cli@6.2.0
           npm install \
-            @capacitor/core@5.7.0 \
-            @capacitor/android@5.7.0 \
-            @capacitor-community/text-to-speech@4.0.0
+            @capacitor/core@6.2.0 \
+            @capacitor/android@6.2.0 \
+            @capacitor-community/text-to-speech@4.0.0 \
+            @capacitor-community/admob@6.0.0
 
       - name: Add Android platform
         run: |
           if [ ! -d "android" ]; then
+            echo "Adding android platform..."
             cap add android
+          else
+            echo "Android platform exists"
           fi
 
       - name: Sync Capacitor
