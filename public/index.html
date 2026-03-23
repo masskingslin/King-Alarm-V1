@@ -806,7 +806,8 @@ input{font-family:inherit;outline:none;border:none}
     if (el) el.textContent = getLang() === 'ta' ? 'LANGUAGE: TAMIL (தமிழ்)' : 'LANGUAGE: ENGLISH';
   }
   function openPanel(ref) {
-    document.getElementById('au-ref').textContent = ref || '';
+    var refEl = document.getElementById('au-ref');
+    if (refEl) refEl.textContent = ref || '';
     document.getElementById('au-panel').classList.add('on');
     updateLangDisplay(); setMsg(''); setProg(0);
   }
@@ -816,6 +817,7 @@ input{font-family:inherit;outline:none;border:none}
     setPlayUI(false); setProg(0);
   }
   function webSpeak(text, lc, onEnd) {
+    setPlayUI(true); setProg(30); setMsg('Starting...');
     try {
       window.speechSynthesis.cancel();
       var u = new SpeechSynthesisUtterance(text);
@@ -851,7 +853,7 @@ input{font-family:inherit;outline:none;border:none}
     }
     if (_web) { webSpeak(text, lc, onEnd); return; }
     setPlayUI(false); setProg(0);
-    setMsg('⚠ Audio not available. Tap Settings below to set up.');
+    setMsg('⚠ Audio not set up. Go to ⚙ SETTINGS tab > TEST AUDIO to set up.');
   }
   function speakNow(text) {
     openPanel(null);
@@ -863,9 +865,9 @@ input{font-family:inherit;outline:none;border:none}
     toggle: function() { var p = document.getElementById('au-panel'); if (p.classList.contains('on')) this.close(); else if (_v) this.open(_v); },
     play:  function()  { var t = _st || (_v ? (_getLangText(_v)) : null); if (!t){ setMsg('No content.'); return; } doSpeak(t, getLc()); },
     readChapter: function() {
-      if (!window.CR || !window.CR._bk) return;
+      if (!window.CR || !window.CR._bk) { setMsg('Open a chapter first.'); return; }
       var vs = BD.byBookCh(window.CR._bk, window.CR._ch);
-      if (!vs.length) return;
+      if (!vs.length) { setMsg('No verses found.'); return; }
       _v = { ref: window.CR._bk + ' Ch ' + window.CR._ch, ta: '', en: '' };
       _st = vs.map(function(v,i){ return (i+1) + '. ' + _getLangText(v); }).join(' ');
       openPanel(window.CR._bk + ' Chapter ' + window.CR._ch);
@@ -1298,7 +1300,13 @@ input{font-family:inherit;outline:none;border:none}
       var btn = document.getElementById('cb'+id);
       if (btn){ var o=btn.textContent; btn.textContent='✓ COPIED'; setTimeout(function(){ btn.textContent=o; },2000); }
     },
-    audio: function(id){ var v=BD.byId(id); if(v) AU.open(v); },
+    audio: function(id){
+      var v=BD.byId(id);
+      if(!v) return;
+      AU.open(v);
+      // Auto-play after short delay so panel animates first
+      setTimeout(function(){ AU.play(); }, 300);
+    },
     cycleLang: function(){
       var ls=['both','ta','en'], cur=ST.g('lang'), ni=(ls.indexOf(cur)+1)%3;
       ST.setLang(ls[ni]);
