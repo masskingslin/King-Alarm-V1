@@ -51,47 +51,66 @@ jobs:
       - name: Sync Capacitor
         run: cap sync android
 
-      # ── Copy King Bible icons into correct Android mipmap folders ──
+      # Copy King Bible icons into Android mipmap folders
+      - name: Install Pillow
+        run: pip install Pillow --break-system-packages
+
       - name: Apply custom app icon
         run: |
-          echo "Applying King Bible App icons..."
-          declare -A SIZES=(
-            ["mdpi"]="48"
-            ["hdpi"]="72"
-            ["xhdpi"]="96"
-            ["xxhdpi"]="144"
-            ["xxxhdpi"]="192"
-          )
-          for density in mdpi hdpi xhdpi xxhdpi xxxhdpi; do
-            # Try both folder name formats Capacitor may use
-            for dir in \
-              "android/app/src/main/res/mipmap-${density}" \
-              "android/app/src/main/res/mipmap-${density}-v4"; do
-              if [ -d "$dir" ]; then
-                src="public/icons/icon_${density}.png"
-                if [ -f "$src" ]; then
-                  cp "$src" "$dir/ic_launcher.png"
-                  cp "$src" "$dir/ic_launcher_round.png"
-                  echo "  Copied $density → $dir"
-                fi
-              fi
-            done
-          done
-          echo "Icons applied."
+          python3 << 'PYEOF'
+          import os, shutil
+          from PIL import Image
 
-      # ── Inject AdMob App ID into AndroidManifest ──
+          # Source icon - user's King Bible logo
+          src = None
+          for p in [
+            'public/icons/ic_launcher_xxxhdpi.png',
+            'public/icons/icon_xxxhdpi.png',
+            'public/icons/icon_xxhdpi.png',
+          ]:
+            if os.path.exists(p):
+              src = p
+              break
+
+          if not src:
+            print("No icon found in public/icons/ - using default")
+            exit(0)
+
+          print(f"Using icon: {src}")
+          img = Image.open(src).convert('RGBA')
+          w, h = img.size
+          side = min(w,h)
+          img = img.crop(((w-side)//2, (h-side)//2, (w+side)//2, (h+side)//2))
+
+          sizes = {'mdpi':48,'hdpi':72,'xhdpi':96,'xxhdpi':144,'xxxhdpi':192}
+
+          for density, size in sizes.items():
+            resized = img.resize((size,size), Image.LANCZOS)
+            for folder in [
+              f'android/app/src/main/res/mipmap-{density}',
+              f'android/app/src/main/res/mipmap-{density}-v4',
+            ]:
+              if os.path.isdir(folder):
+                for name in ['ic_launcher.png','ic_launcher_round.png','ic_launcher_foreground.png']:
+                  out = os.path.join(folder, name)
+                  resized.save(out,'PNG')
+                print(f"  Applied {density} ({size}x{size}) -> {folder}")
+          print("Icons applied.")
+          PYEOF
+
+      # Inject AdMob App ID into AndroidManifest
       - name: Inject AdMob App ID
         run: |
           python3 << 'PYEOF'
           with open("android/app/src/main/AndroidManifest.xml","r") as f:
-              content = f.read()
-          if "APPLICATION_ID" not in content:
-              content = content.replace(
+              c = f.read()
+          if "APPLICATION_ID" not in c:
+              c = c.replace(
                   'android:theme="@style/AppTheme">',
                   'android:theme="@style/AppTheme">\n        <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-9057426786910647~7730878522"/>'
               )
               with open("android/app/src/main/AndroidManifest.xml","w") as f:
-                  f.write(content)
+                  f.write(c)
               print("AdMob ID injected")
           else:
               print("AdMob ID already present")
