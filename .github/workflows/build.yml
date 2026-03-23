@@ -51,25 +51,38 @@ jobs:
       - name: Sync Capacitor
         run: cap sync android
 
-      # ── Copy custom icons into all mipmap folders ──────────────────────
+      # ── Copy King Bible icons into correct Android mipmap folders ──
       - name: Apply custom app icon
         run: |
+          echo "Applying King Bible App icons..."
+          declare -A SIZES=(
+            ["mdpi"]="48"
+            ["hdpi"]="72"
+            ["xhdpi"]="96"
+            ["xxhdpi"]="144"
+            ["xxxhdpi"]="192"
+          )
           for density in mdpi hdpi xhdpi xxhdpi xxxhdpi; do
-            dir="android/app/src/main/res/mipmap-${density}-v4"
-            mkdir -p "$dir"
-            if [ -f "public/icons/ic_launcher_${density}.png" ]; then
-              cp "public/icons/ic_launcher_${density}.png" "$dir/ic_launcher.png"
-              cp "public/icons/ic_launcher_${density}.png" "$dir/ic_launcher_round.png"
-              cp "public/icons/ic_launcher_${density}.png" "$dir/ic_launcher_foreground.png"
-              echo "Icon applied: $density"
-            fi
+            # Try both folder name formats Capacitor may use
+            for dir in \
+              "android/app/src/main/res/mipmap-${density}" \
+              "android/app/src/main/res/mipmap-${density}-v4"; do
+              if [ -d "$dir" ]; then
+                src="public/icons/icon_${density}.png"
+                if [ -f "$src" ]; then
+                  cp "$src" "$dir/ic_launcher.png"
+                  cp "$src" "$dir/ic_launcher_round.png"
+                  echo "  Copied $density → $dir"
+                fi
+              fi
+            done
           done
+          echo "Icons applied."
 
-      # ── Inject AdMob App ID into AndroidManifest ───────────────────────
+      # ── Inject AdMob App ID into AndroidManifest ──
       - name: Inject AdMob App ID
         run: |
           python3 << 'PYEOF'
-          import re
           with open("android/app/src/main/AndroidManifest.xml","r") as f:
               content = f.read()
           if "APPLICATION_ID" not in content:
@@ -89,7 +102,7 @@ jobs:
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
-          find . -name "*.apk" | head -5
+          find . -name "*.apk" | head -3
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
