@@ -33,7 +33,6 @@ jobs:
           key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*','**/gradle-wrapper.properties') }}
           restore-keys: gradle-${{ runner.os }}-
 
-      # Capacitor 6 + TTS 4 + AdMob 6 (all compatible)
       - name: Install packages
         run: |
           npm install -g @capacitor/cli@6.2.0
@@ -46,14 +45,42 @@ jobs:
       - name: Add Android platform
         run: |
           if [ ! -d "android" ]; then
-            echo "Adding android platform..."
             cap add android
-          else
-            echo "Android platform exists"
           fi
 
       - name: Sync Capacitor
         run: cap sync android
+
+      # Inject AdMob App ID into AndroidManifest.xml
+      - name: Inject AdMob App ID into manifest
+        run: |
+          MANIFEST="android/app/src/main/AndroidManifest.xml"
+          ADMOB_ID="ca-app-pub-9057426786910647~7730878522"
+          if ! grep -q "com.google.android.gms.ads.APPLICATION_ID" "$MANIFEST"; then
+            sed -i "s|<application|<application>\\n        <meta-data android:name=\"com.google.android.gms.ads.APPLICATION_ID\" android:value=\"$ADMOB_ID\"/>|" "$MANIFEST" || true
+            # Alternative approach if sed fails
+            python3 - << 'PYEOF'
+          import re
+          with open("android/app/src/main/AndroidManifest.xml","r") as f:
+              content = f.read()
+          if "APPLICATION_ID" not in content:
+              content = content.replace(
+                  '<application',
+                  '<application\n        android:usesCleartextTraffic="false"',
+                  1
+              )
+              # Insert meta-data after <application tag closes
+              content = content.replace(
+                  'android:theme="@style/AppTheme">',
+                  'android:theme="@style/AppTheme">\n        <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-9057426786910647~7730878522"/>'
+              )
+              with open("android/app/src/main/AndroidManifest.xml","w") as f:
+                  f.write(content)
+              print("AdMob APP ID injected into manifest")
+          else:
+              print("AdMob APP ID already in manifest")
+          PYEOF
+          fi
 
       - name: Build Debug APK
         run: |
