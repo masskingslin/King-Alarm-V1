@@ -1,6 +1,6 @@
 {
-  "appId": "org.king.crownbible",
-  "appName": "Crown Bible",
+  "appId": "org.king.holybible",
+  "appName": "Holy Bible",
   "webDir": "public",
   "android": {
     "allowMixedContent": false,
