@@ -1,59 +1,19 @@
-// Ensure Capacitor is available
-const { AdMob, BannerAdSize, BannerAdPosition, BannerAdPluginEvents } = capacitorExports;
-
-const AdManager = {
-  async init() {
-    try {
-      // Initialize AdMob
-      await AdMob.initialize({
-        requestTrackingAuthorization: true,
-        testingDevices: ['YOUR_TEST_DEVICE_ID'], // Optional: Add your OnePlus device ID here
-      });
-      console.log('AdMob Initialized');
-      
-      // Load the banner at the bottom of the screen (replacing Slot 4 / Saved Screen Ad)
-      this.showBottomBanner();
-    } catch (error) {
-      console.error('AdMob Init Error:', error);
+{
+  "appId": "com.vedavachanam.holybible",
+  "appName": "வேத வசனம் Bible",
+  "webDir": "public",
+  "plugins": {
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
+    },
+    "SplashScreen": {
+      "launchShowDuration": 2500,
+      "backgroundColor": "#080810",
+      "showSpinner": false
     }
   },
-
-  async showBottomBanner() {
-    try {
-      const options = {
-        // IMPORTANT: Replace with your actual Banner Ad Unit ID before production release
-        // This is Google's Test Banner ID
-        adId: 'ca-app-pub-3940256099942544/6300978111', 
-        adSize: BannerAdSize.BANNER,
-        position: BannerAdPosition.BOTTOM_CENTER,
-        margin: 0,
-        isTesting: true // Set to false for production
-      };
-
-      await AdMob.showBanner(options);
-      
-      // Add padding to your body so the banner doesn't cover your bottom nav bar!
-      document.body.style.paddingBottom = '50px'; 
-      
-    } catch (error) {
-      console.error('AdMob Banner Error:', error);
-    }
-  },
-
-  async hideBanner() {
-    try {
-      await AdMob.hideBanner();
-      document.body.style.paddingBottom = '0px';
-    } catch (error) {
-      console.error('AdMob Hide Error:', error);
-    }
+  "android": {
+    "minWebViewVersion": 60,
+    "backgroundColor": "#080810"
   }
-};
-
-// Listen for Capacitor's appLoad event to initialize
-window.addEventListener('DOMContentLoaded', () => {
-  // If running in Capacitor (Android), init AdMob
-  if (window.Capacitor && window.Capacitor.isNative) {
-    AdManager.init();
-  }
-});
+}
