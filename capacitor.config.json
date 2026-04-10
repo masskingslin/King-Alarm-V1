@@ -1,17 +1,8 @@
 {
   "appId": "com.vedavachanam.holybible",
-  "appName": "வேத வசனம் Bible",
+  "appName": "Holy Bible",
   "webDir": "public",
-  "plugins": {
-    "PushNotifications": {
-      "presentationOptions": ["badge", "sound", "alert"]
-    },
-    "SplashScreen": {
-      "launchShowDuration": 2500,
-      "backgroundColor": "#080810",
-      "showSpinner": false
-    }
-  },
+  "plugins": {},
   "android": {
     "minWebViewVersion": 60,
     "backgroundColor": "#080810"

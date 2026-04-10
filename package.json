@@ -1,13 +1,11 @@
 {
-  "name": "veda-vachanam-holy-bible",
-  "version": "7.0.0",
-  "description": "Tamil + English Bible App - 31102 verses, Push Notifications, Audio TTS",
+  "name": "holy-bible-app",
+  "version": "7.1.0",
+  "description": "Holy Bible - Tamil + English - 31102 verses",
   "private": true,
   "dependencies": {
     "@capacitor/core": "^5.7.0",
-    "@capacitor/android": "^5.7.0",
-    "@capacitor/push-notifications": "^5.1.2",
-    "@capacitor/splash-screen": "^5.0.7"
+    "@capacitor/android": "^5.7.0"
   },
   "devDependencies": {
     "@capacitor/cli": "^5.7.0"
