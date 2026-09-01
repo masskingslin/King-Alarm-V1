@@ -60,6 +60,26 @@ jobs:
       - name: Add Android platform
         run: npx cap add android || true
 
+      - name: Bump compile/target SDK to 36 and AGP/Gradle
+        run: |
+          VARS="android/variables.gradle"
+          sed -i "s/compileSdkVersion = .*/compileSdkVersion = 36/" "$VARS"
+          sed -i "s/targetSdkVersion = .*/targetSdkVersion = 36/" "$VARS"
+          grep -E "compileSdkVersion|targetSdkVersion" "$VARS"
+
+          BUILD_GRADLE="android/build.gradle"
+          sed -i "s/com.android.tools.build:gradle:[0-9.]*/com.android.tools.build:gradle:8.7.2/" "$BUILD_GRADLE"
+          grep "com.android.tools.build:gradle" "$BUILD_GRADLE"
+
+          WRAPPER="android/gradle/wrapper/gradle-wrapper.properties"
+          sed -i "s|gradle-[0-9.]*-all.zip|gradle-8.9-all.zip|" "$WRAPPER"
+          grep distributionUrl "$WRAPPER"
+
+      - name: Install Android SDK Platform 36
+        run: |
+          SDK_ROOT="${ANDROID_SDK_ROOT:-$ANDROID_HOME}"
+          yes | "$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;35.0.0" --sdk_root="$SDK_ROOT"
+
       - name: Sync web app to Android
         run: npx cap sync android
 
